@@ -18,6 +18,8 @@ public class playerController : MonoBehaviour
     public float fireCooldown = 0f;
     public float moveSpeed = 2.0f;
     public float jumpSpeed = 2.0f;
+
+    public bool isInWater = false;
     void Start()
     {
         // playerRB = gameObject.GetComponent<Rigidbody2D>();
@@ -104,7 +106,7 @@ public class playerController : MonoBehaviour
     }
 
     void Jump() {
-        if (Input.GetAxisRaw("Jump") == 1 && IsGrounded()) {
+        if (Input.GetAxisRaw("Jump") == 1 && (IsGrounded() || isInWater)) {
             // acceleration.y = gravity;
             Vector2 jumpVec = Vector2.up * jumpSpeed * Time.deltaTime;
             // position += jumpVec;
@@ -117,13 +119,15 @@ public class playerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.name == "waterTile") {
-            gravity = 4.45f;
+            gravity = 25f;
+            isInWater = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D other) {
         if (other.gameObject.name == "waterTile") {
-            gravity = 9.8f;
+            gravity = 50f;
+            isInWater = false;
         }    
     }
 }
