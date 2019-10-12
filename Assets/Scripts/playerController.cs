@@ -30,6 +30,8 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        position = transform.position;
+        
         Vector2 intialVelocity = velocity;
         // position = transform.position;
 
@@ -60,7 +62,7 @@ public class playerController : MonoBehaviour
         Vector2 targetTranslation = (velocity * Time.deltaTime)  + (0.5f * acceleration * Time.deltaTime * Time.deltaTime);
         // transform.Translate(targetTranslation);
         transform.position = Vector2.Lerp(transform.position, targetTranslation, 0.15f);
-        position = transform.position;
+        
     }
 
     void Move() {
@@ -137,20 +139,20 @@ public class playerController : MonoBehaviour
             // position += jumpVec;
             // transform.position = position;
             // velocity.y += 5000.0f * Time.deltaTime;
-            velocity.y = 20.0f;
+            velocity.y += 50.0f;
 
         }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.name == "waterTile") {
+        if (other.gameObject.tag == "water") {
             gravity = 25f;
             isInWater = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D other) {
-        if (other.gameObject.name == "waterTile") {
+        if (other.gameObject.tag == "water") {
             gravity = 50f;
             isInWater = false;
         }    
