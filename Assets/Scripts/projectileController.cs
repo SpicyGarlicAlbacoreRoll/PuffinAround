@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class projectileController : MonoBehaviour
 {
+    float viewThreshold = 1f;
     Rigidbody2D projectileRB;
     // Start is called before the first frame update
     void Start()
@@ -16,5 +17,10 @@ public class projectileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+
+        if (viewPos.x > viewThreshold) {
+            Destroy(gameObject);
+        }
     }
 }
