@@ -41,7 +41,6 @@ public class playerController : MonoBehaviour
 
         if(Input.GetKey(KeyCode.F))
         {
-            print(fireCooldown);
             if (fireCooldown <= 0f) {
                 position = transform.position;
                 Instantiate(projectile, transform);
@@ -52,6 +51,7 @@ public class playerController : MonoBehaviour
         if(fireCooldown > 0f) {
             fireCooldown -= Time.deltaTime;
         }
+
         Jump();
         Vector2 targetTranslation = (velocity * Time.deltaTime)  + (0.5f * acceleration * Time.deltaTime * Time.deltaTime);
         // transform.Translate(targetTranslation);
