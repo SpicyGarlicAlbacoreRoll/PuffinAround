@@ -151,7 +151,7 @@ public class playerController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other) {
         if (other.gameObject.name == "waterTile") {
-            gravity = 50f;
+            gravity = 75f;
             isInWater = false;
         }    
     }
