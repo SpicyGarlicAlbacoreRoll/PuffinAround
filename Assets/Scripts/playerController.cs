@@ -7,11 +7,15 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     Rigidbody2D playerRB;
     public LayerMask groundLayer;
+    
+    public GameObject projectile;
 
     public Vector2 position;
     public Vector2 velocity;
     public Vector2 acceleration;
     public float gravity = 9.8f;
+
+    public float fireCooldown = 0f;
     void Start()
     {
         // playerRB = gameObject.GetComponent<Rigidbody2D>();
@@ -30,12 +34,30 @@ public class playerController : MonoBehaviour
         }
 
         Move();
+
+        if(Input.GetKey(KeyCode.F))
+        {
+            print(fireCooldown);
+            if (fireCooldown <= 0f) {
+                position = transform.position;
+                Instantiate(projectile, transform);
+                fireCooldown = 0.5f;
+            }
+        }
+
+        if(fireCooldown > 0f) {
+            fireCooldown -= Time.deltaTime;
+        }
     }
 
     void Move() {
         Vector2 direction = Input.GetAxisRaw("Horizontal") * Vector2.right;
         position += (direction * Time.deltaTime * 2.0f);
         transform.position = position;
+    }
+
+    void LaunchProjctile() {
+
     }
 
     bool IsGrounded() {
