@@ -20,6 +20,7 @@ public class playerController : MonoBehaviour
     public float jumpSpeed = 2.0f;
 
     public bool isInWater = false;
+    public int featherCounter = 0;
     void Start()
     {
         // playerRB = gameObject.GetComponent<Rigidbody2D>();
@@ -154,6 +155,8 @@ public class playerController : MonoBehaviour
         if (other.gameObject.tag == "water") {
             gravity = 25f;
             isInWater = true;
+        } else if(other.gameObject.tag == "feather") {
+            featherCounter++;
         }
     }
 

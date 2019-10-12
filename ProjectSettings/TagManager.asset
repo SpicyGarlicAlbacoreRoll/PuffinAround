@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - water
+  - feather
+  - beak
   layers:
   - Default
   - TransparentFX
