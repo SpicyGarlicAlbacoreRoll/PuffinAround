@@ -586,6 +586,12 @@ PrefabInstance:
       propertyPath: gravity
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 1371762938839179311, guid: 7de327b082c80edc692d882c3d3b708a,
+        type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 5877123098893100308, guid: 2962c658bf9f8486e84f03c6aa9afaf6,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 1371762938839179307, guid: 7de327b082c80edc692d882c3d3b708a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7de327b082c80edc692d882c3d3b708a, type: 3}
