@@ -56,4 +56,16 @@ public class playerController : MonoBehaviour
         position -= (Vector2.up * gravity * Time.deltaTime);
         transform.position = position;
     }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.name == "waterTile") {
+            gravity = 4.45f;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.name == "waterTile") {
+            gravity = 9.8f;
+        }    
+    }
 }
