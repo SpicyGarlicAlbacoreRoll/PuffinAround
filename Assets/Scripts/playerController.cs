@@ -140,7 +140,7 @@ public class playerController : MonoBehaviour
             // transform.position = position;
             // velocity.y += 5000.0f * Time.deltaTime;
             if(isInWater) {
-                velocity.y += 30.0f;
+                velocity.y += 12.5f;
             }
             else {
                 velocity.y += 50.0f;
