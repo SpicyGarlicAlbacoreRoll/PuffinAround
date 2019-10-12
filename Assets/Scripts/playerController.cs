@@ -21,16 +21,21 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        position = transform.position;
         Vector2 xAxisMovement = new Vector2(Input.GetAxisRaw("Horizontal"), 0.0f);
         // playerRB.AddForce(xAxisMovement);
 
         if(!IsGrounded()) {
             Falling();
         }
+
+        Move();
     }
 
     void Move() {
-
+        Vector2 direction = Input.GetAxisRaw("Horizontal") * Vector2.right;
+        position += (direction * Time.deltaTime * 2.0f);
+        transform.position = position;
     }
 
     bool IsGrounded() {
