@@ -87,4 +87,16 @@ public class playerController : MonoBehaviour
 
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.name == "waterTile") {
+            gravity = 4.45f;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.name == "waterTile") {
+            gravity = 9.8f;
+        }    
+    }
 }
