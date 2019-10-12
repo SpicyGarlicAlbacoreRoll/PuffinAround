@@ -41,16 +41,15 @@ public class playerController : MonoBehaviour
 
         Move();
 
-        if(Input.GetKey(KeyCode.F))
+        if(Input.GetKeyDown(KeyCode.F) && fireCooldown <= 0.45f) {
+            print("the key down one");
+            FireProjectile();
+        }
+
+        else if(Input.GetKey(KeyCode.F) && fireCooldown <= 0f)
         {
-            if(Input.GetKeyDown(KeyCode.F)) {
-                FireProjectile();
-            }
-            if (fireCooldown <= 0f) {
-                position = transform.position;
-                FireProjectile();
-                fireCooldown = 0.5f;
-            }
+            print("the cool down one");
+            FireProjectile();
         }
 
         if(fireCooldown > 0f) {
@@ -79,7 +78,8 @@ public class playerController : MonoBehaviour
     }
 
     void FireProjectile() {
-        Instantiate(projectile, transform);
+        Instantiate(projectile, transform.position, transform.rotation);
+        fireCooldown = 0.5f;
     }
 
     bool IsGrounded() {
@@ -91,7 +91,6 @@ public class playerController : MonoBehaviour
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
         if(hit.collider != null) {
-            Debug.Log("GROUNDED");
             // velocity.y = 0;
             // acceleration.y = 0;
             return true;

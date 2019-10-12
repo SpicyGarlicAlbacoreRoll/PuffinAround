@@ -9,11 +9,12 @@ public class projectileController : MonoBehaviour
     void Start()
     {
         projectileRB = gameObject.GetComponent<Rigidbody2D>();
+
+        projectileRB.AddForce(transform.right * 100f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        projectileRB.velocity = Vector2.right;
     }
 }
