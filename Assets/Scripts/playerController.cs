@@ -64,9 +64,14 @@ public class playerController : MonoBehaviour
     }
 
     void Move() {
-        Vector2 direction = Input.GetAxisRaw("Horizontal") * Vector2.right;
-        Vector2 targetVelocity = direction * moveSpeed;
-        velocity += targetVelocity;
+        if(Input.GetAxisRaw("Horizontal") != 0) {
+            if(!collidingWall(Input.GetAxisRaw("Horizontal"))) {
+                Vector2 direction = Input.GetAxisRaw("Horizontal") * Vector2.right;
+                Vector2 targetVelocity = direction * moveSpeed;
+                velocity += targetVelocity;
+            }
+        }
+
         // position += (direction * Time.deltaTime * moveSpeed);
 
         // transform.position = position;
@@ -83,8 +88,29 @@ public class playerController : MonoBehaviour
 
         float distance = 0.275f;
 
+        Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
         if(hit.collider != null) {
+            // velocity.y = 0;
+            // acceleration.y = 0;
+            return true;
+            
+        }
+
+        return false;
+    }
+
+    bool collidingWall(float velDirection) {
+            Vector2 direction = new Vector2(velDirection, 0);
+        // Vector2 position = transform.position;
+
+        float distance = 0.35f;
+
+        //offset is for measure from the bottom corner of the player
+        Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(position - new Vector2(0, 0.1f), direction, distance, groundLayer);
+        if(hit.collider != null) {
+            Debug.Log("Hitting wall");
             // velocity.y = 0;
             // acceleration.y = 0;
             return true;
