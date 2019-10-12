@@ -13,7 +13,7 @@ public class playerController : MonoBehaviour
     public Vector2 position;
     public Vector2 velocity;
     public Vector2 acceleration;
-    public float gravity = 9.8f;
+    public float gravity = 75.0f;
 
     public float fireCooldown = 0f;
     public float moveSpeed = 2.0f;
@@ -30,6 +30,8 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        position = transform.position;
+        
         Vector2 intialVelocity = velocity;
         // position = transform.position;
 
@@ -60,7 +62,7 @@ public class playerController : MonoBehaviour
         Vector2 targetTranslation = (velocity * Time.deltaTime)  + (0.5f * acceleration * Time.deltaTime * Time.deltaTime);
         // transform.Translate(targetTranslation);
         transform.position = Vector2.Lerp(transform.position, targetTranslation, 0.15f);
-        position = transform.position;
+        
     }
 
     void Move() {
@@ -86,7 +88,7 @@ public class playerController : MonoBehaviour
         Vector2 direction = Vector2.down;
         // Vector2 position = transform.position;
 
-        float distance = 0.275f;
+        float distance = 0.3f;
 
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
@@ -137,13 +139,13 @@ public class playerController : MonoBehaviour
             // position += jumpVec;
             // transform.position = position;
             // velocity.y += 5000.0f * Time.deltaTime;
-            velocity.y = 20.0f;
+            velocity.y += 50.0f;
 
         }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.name == "waterTile") {
+        if (other.gameObject.tag == "water") {
             gravity = 25f;
             isInWater = true;
         }
@@ -151,7 +153,7 @@ public class playerController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other) {
         if (other.gameObject.name == "waterTile") {
-            gravity = 50f;
+            gravity = 75f;
             isInWater = false;
         }    
     }
