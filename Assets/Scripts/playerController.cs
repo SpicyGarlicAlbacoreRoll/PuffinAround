@@ -139,7 +139,13 @@ public class playerController : MonoBehaviour
             // position += jumpVec;
             // transform.position = position;
             // velocity.y += 5000.0f * Time.deltaTime;
-            velocity.y += 50.0f;
+            if(isInWater) {
+                velocity.y += 30.0f;
+            }
+            else {
+                velocity.y += 50.0f;
+            }
+                
 
         }
     }
@@ -152,7 +158,7 @@ public class playerController : MonoBehaviour
     }
 
     void OnTriggerExit2D(Collider2D other) {
-        if (other.gameObject.name == "waterTile") {
+        if (other.gameObject.tag == "water") {
             gravity = 75f;
             isInWater = false;
         }    
