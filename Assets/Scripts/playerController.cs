@@ -13,7 +13,7 @@ public class playerController : MonoBehaviour
     public Vector2 position;
     public Vector2 velocity;
     public Vector2 acceleration;
-    public float gravity = 9.8f;
+    public float gravity = 75.0f;
 
     public float fireCooldown = 0f;
     public float moveSpeed = 2.0f;
@@ -86,7 +86,7 @@ public class playerController : MonoBehaviour
         Vector2 direction = Vector2.down;
         // Vector2 position = transform.position;
 
-        float distance = 0.275f;
+        float distance = 0.3f;
 
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
