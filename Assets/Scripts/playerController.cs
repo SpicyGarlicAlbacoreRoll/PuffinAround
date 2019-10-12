@@ -41,9 +41,12 @@ public class playerController : MonoBehaviour
 
         if(Input.GetKey(KeyCode.F))
         {
+            if(Input.GetKeyDown(KeyCode.F)) {
+                FireProjectile();
+            }
             if (fireCooldown <= 0f) {
                 position = transform.position;
-                Instantiate(projectile, transform);
+                FireProjectile();
                 fireCooldown = 0.5f;
             }
         }
@@ -68,8 +71,8 @@ public class playerController : MonoBehaviour
         // transform.position = position;
     }
 
-    void LaunchProjctile() {
-
+    void FireProjectile() {
+        Instantiate(projectile, transform);
     }
 
     bool IsGrounded() {
