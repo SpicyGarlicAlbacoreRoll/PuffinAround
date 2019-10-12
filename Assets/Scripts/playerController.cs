@@ -35,7 +35,9 @@ public class playerController : MonoBehaviour
 
         Move();
         Jump();
-        transform.position = (velocity * Time.deltaTime)  + (0.5f * acceleration * Time.deltaTime * Time.deltaTime);
+        Vector2 targetTranslation = (velocity * Time.deltaTime)  + (0.5f * acceleration * Time.deltaTime * Time.deltaTime);
+        // transform.Translate(targetTranslation);
+        transform.position = Vector2.Lerp(transform.position, targetTranslation, 0.15f);
         position = transform.position;
     }
 
@@ -52,7 +54,7 @@ public class playerController : MonoBehaviour
         Vector2 direction = Vector2.down;
         // Vector2 position = transform.position;
 
-        float distance = 0.175f;
+        float distance = 0.275f;
 
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
         if(hit.collider != null) {
@@ -83,7 +85,7 @@ public class playerController : MonoBehaviour
             // position += jumpVec;
             // transform.position = position;
             // velocity.y += 5000.0f * Time.deltaTime;
-            velocity.y = 10.0f;
+            velocity.y = 20.0f;
 
         }
     }
