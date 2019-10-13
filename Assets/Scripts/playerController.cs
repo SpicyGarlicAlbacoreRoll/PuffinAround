@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour
 
     public bool isInWater = false;
     public bool isOnSpike = false;
+    public int playerDirection;
     // public int featherCounter = 0;
 
     GameObject[] Feathers;
@@ -84,6 +85,7 @@ public class playerController : MonoBehaviour
         if(Input.GetAxisRaw("Horizontal") != 0) {
             if(!collidingWall(Input.GetAxisRaw("Horizontal"))) {
                 Vector2 direction = Input.GetAxisRaw("Horizontal") * Vector2.right;
+                setDirection(Input.GetAxisRaw("Horizontal"));
                 Vector2 targetVelocity = direction * moveSpeed;
                 velocity += targetVelocity;
             }
@@ -197,6 +199,23 @@ public class playerController : MonoBehaviour
         }
     }
 
+    public int getDirection() {
+        
+        return playerDirection;
+    }
+
+    public void setDirection(float direction) {
+        if(direction < 0) {
+            
+            playerDirection = -1;
+            Debug.Log($"changing direction {playerDirection}");
+
+        } else {
+            
+            playerDirection = 1;
+            Debug.Log($"changing direction {playerDirection}");
+        }
+    }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "water") {
             gravity = 25f;
