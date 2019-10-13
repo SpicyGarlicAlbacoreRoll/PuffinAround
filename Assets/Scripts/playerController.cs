@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
 {
@@ -177,7 +178,7 @@ public class playerController : MonoBehaviour
     }
 
     void HitSpike() {
-        health--;  
+        TakeDamage();
     }
 
     void AddFeather() {
@@ -186,6 +187,12 @@ public class playerController : MonoBehaviour
          
     }
 
+    void TakeDamage() {
+        health--;
+        if (health == 0) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "water") {
@@ -195,7 +202,7 @@ public class playerController : MonoBehaviour
         } else if(other.gameObject.tag == "feather") {
             AddFeather();
         } else if(other.gameObject.tag == "enemy") {
-            health--;
+            TakeDamage();
         } else if(other.gameObject.tag == "beak") {
             beakCounter++;
         }
