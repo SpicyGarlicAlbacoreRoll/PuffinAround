@@ -24,6 +24,7 @@ public class playerController : MonoBehaviour
     public int featherCounter = 0;
 
     public int health = 5;
+    public int beakCounter = 0;
     void Start()
     {
         // playerRB = gameObject.GetComponent<Rigidbody2D>();
@@ -153,6 +154,7 @@ public class playerController : MonoBehaviour
             }
             else {
                 velocity.y += 50.0f;
+                Debug.Log("jump velocity: " + velocity.y);
             }
                 
 
@@ -171,7 +173,9 @@ public class playerController : MonoBehaviour
             featherCounter++;
         } else if(other.gameObject.tag == "enemy") {
             health--;
-        } 
+        } else if(other.gameObject.tag == "beak") {
+            beakCounter++;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other) {
