@@ -184,7 +184,6 @@ public class playerController : MonoBehaviour
                 }
 
                 velocity.y += 160.0f;
-                Debug.Log("jump velocity: " + velocity.y);
                 jumpCoolDownTimer = 0.0f;
             }
                 
@@ -217,13 +216,11 @@ public class playerController : MonoBehaviour
         if(direction < 0) {
             
             playerDirection = -1;
-            Debug.Log($"changing direction {playerDirection}");
             playerSprite.flipX = true;
 
         } else {
             playerSprite.flipX = false;
             playerDirection = 1;
-            Debug.Log($"changing direction {playerDirection}");
         }
     }
     void OnTriggerEnter2D(Collider2D other) {

@@ -14,11 +14,9 @@ public class projectileController : MonoBehaviour
         // projectileRB = gameObject.GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
         if (player == null) {
-            Debug.Log("Can't find game object with tag");
         }
         playerController playerScript = player.GetComponent<playerController>();
         int direction = playerScript.getDirection();
-        Debug.Log($"FIRING IN {direction}");
         projectileRB.AddForce(transform.right * 100f * direction);
     }
 
