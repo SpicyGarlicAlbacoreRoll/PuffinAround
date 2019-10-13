@@ -16,9 +16,7 @@ public class enemyScript : MonoBehaviour
     {
         Vector3 playerPos = player.transform.position;
         Vector3 enemyPos = transform.position;
-        float distanceX = playerPos.x - enemyPos.x;
-        float distanceY = playerPos.y - enemyPos.y;
-        float distanceToPlayer = Mathf.Pow(distanceX * distanceX + distanceY * distanceY, 0.5f);
+        float distanceToPlayer = Vector3.Distance(playerPos, enemyPos);
     }
 
     void OnTriggerEnter2D(Collider2D other) {
