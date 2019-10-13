@@ -6,12 +6,20 @@ public class projectileController : MonoBehaviour
 {
     float viewThreshold = 1f;
     Rigidbody2D projectileRB;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         projectileRB = gameObject.GetComponent<Rigidbody2D>();
-
-        projectileRB.AddForce(transform.right * 100f);
+        // projectileRB = gameObject.GetComponent<Rigidbody2D>();
+        player = GameObject.FindWithTag("Player");
+        if (player == null) {
+            Debug.Log("Can't find game object with tag");
+        }
+        playerController playerScript = player.GetComponent<playerController>();
+        int direction = playerScript.getDirection();
+        Debug.Log($"FIRING IN {direction}");
+        projectileRB.AddForce(transform.right * 100f * direction);
     }
 
     // Update is called once per frame

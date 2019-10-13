@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
@@ -22,20 +23,28 @@ public class playerController : MonoBehaviour
 
     public bool isInWater = false;
     public bool isOnSpike = false;
+    public int playerDirection;
     // public int featherCounter = 0;
 
-    GameObject Feathers;
-    featherScript featherScript;
+    GameObject[] Feathers;
     public int health = 5;
+
+    public Text featherText;
+    public Text healthText;
     public int beakCounter = 0;
     public float playerEnemeyThreshold = 0.05f;
+
+    public int maxJumps = 1;
+    public int jumpCount = 0;
+    public float jumpCoolDown = 0.3f;
+    public float jumpCoolDownTimer = 0.0f;
+    public int featherCounter = 0;
     void Start()
     {
-        Feathers = GameObject.Find("Feathers");
-        featherScript = Feathers.GetComponent<featherScript>();
-        // playerRB = gameObject.GetComponent<Rigidbody2D>();
         position = transform.position;
         acceleration.y = -gravity;
+        featherText = GameObject.Find("FeatherText").GetComponent<Text>();
+        healthText = GameObject.Find("HealthText").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -71,12 +80,18 @@ public class playerController : MonoBehaviour
         Vector2 targetTranslation = (velocity * Time.deltaTime)  + (0.5f * acceleration * Time.deltaTime * Time.deltaTime);
         // transform.Translate(targetTranslation);
         transform.position = Vector2.Lerp(transform.position, targetTranslation, 0.15f);
+        if(jumpCoolDownTimer < jumpCoolDown) {
+            jumpCoolDownTimer += Time.deltaTime;
+        }
+        healthText.GetComponent<UnityEngine.UI.Text>().text = "Health: " + health.ToString();
+        featherText.GetComponent<UnityEngine.UI.Text>().text = "Feathers: " + featherCounter.ToString();
     }
 
     void Move() {
         if(Input.GetAxisRaw("Horizontal") != 0) {
             if(!collidingWall(Input.GetAxisRaw("Horizontal"))) {
                 Vector2 direction = Input.GetAxisRaw("Horizontal") * Vector2.right;
+                setDirection(Input.GetAxisRaw("Horizontal"));
                 Vector2 targetVelocity = direction * moveSpeed;
                 velocity += targetVelocity;
             }
@@ -96,7 +111,7 @@ public class playerController : MonoBehaviour
         Vector2 direction = Vector2.down;
         // Vector2 position = transform.position;
 
-        float distance = 0.3f;
+        float distance = 1.5f*0.3f;
 
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
@@ -112,6 +127,8 @@ public class playerController : MonoBehaviour
             isOnSpike = (hit.collider.gameObject.tag == "hazard");
             // velocity.y = 0;
             // acceleration.y = 0;
+            transform.position = position;
+            jumpCount = 0;
             return true;
             
         }
@@ -123,7 +140,7 @@ public class playerController : MonoBehaviour
             Vector2 direction = new Vector2(velDirection, 0);
         // Vector2 position = transform.position;
 
-        float distance = 0.35f;
+        float distance = 1.5f*0.35f;
 
         //offset is for measure from the bottom corner of the player
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.red);
@@ -149,7 +166,7 @@ public class playerController : MonoBehaviour
     }
 
     void Jump() {
-        if (Input.GetAxisRaw("Jump") == 1 && (IsGrounded() || isInWater)) {
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCoolDownTimer >= jumpCoolDown && (IsGrounded() || isInWater || jumpCount < maxJumps)) {
             // acceleration.y = gravity;
             Vector2 jumpVec = Vector2.up * jumpSpeed * Time.deltaTime;
             // position += jumpVec;
@@ -159,7 +176,13 @@ public class playerController : MonoBehaviour
                 velocity.y += 30.0f;
             }
             else {
-                velocity.y += 50.0f;
+                if(!isInWater) {
+                    jumpCount++;
+                }
+
+                velocity.y += 80.0f;
+                Debug.Log("jump velocity: " + velocity.y);
+                jumpCoolDownTimer = 0.0f;
             }
                 
 
@@ -171,8 +194,8 @@ public class playerController : MonoBehaviour
     }
 
     void AddFeather() {
-        int currentFeathers = featherScript.GetFeathers();
-        featherScript.SetFeathers(currentFeathers + 1);
+        featherCounter++;
+        maxJumps = (featherCounter / 3) + 1;         
     }
 
     void TakeDamage() {
@@ -182,10 +205,28 @@ public class playerController : MonoBehaviour
         }
     }
 
+    public int getDirection() {
+        
+        return playerDirection;
+    }
+
+    public void setDirection(float direction) {
+        if(direction < 0) {
+            
+            playerDirection = -1;
+            Debug.Log($"changing direction {playerDirection}");
+
+        } else {
+            
+            playerDirection = 1;
+            Debug.Log($"changing direction {playerDirection}");
+        }
+    }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "water") {
             gravity = 25f;
             isInWater = true;
+            jumpCount = 0;
         } else if(other.gameObject.tag == "feather") {
             AddFeather();
         } else if(other.gameObject.tag == "enemy" || other.gameObject.tag == "enemy_jump") {
