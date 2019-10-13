@@ -114,7 +114,7 @@ public class playerController : MonoBehaviour
         Vector2 direction = Vector2.down;
         // Vector2 position = transform.position;
 
-        float distance = 1.5f*1f;
+        float distance = 1.5f;
 
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
@@ -184,7 +184,6 @@ public class playerController : MonoBehaviour
                 }
 
                 velocity.y += 160.0f;
-                Debug.Log("jump velocity: " + velocity.y);
                 jumpCoolDownTimer = 0.0f;
             }
                 
@@ -217,13 +216,11 @@ public class playerController : MonoBehaviour
         if(direction < 0) {
             
             playerDirection = -1;
-            Debug.Log($"changing direction {playerDirection}");
             playerSprite.flipX = true;
 
         } else {
             playerSprite.flipX = false;
             playerDirection = 1;
-            Debug.Log($"changing direction {playerDirection}");
         }
     }
     void OnTriggerEnter2D(Collider2D other) {
