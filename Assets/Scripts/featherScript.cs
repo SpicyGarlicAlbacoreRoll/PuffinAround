@@ -6,7 +6,7 @@ public class featherScript : MonoBehaviour
     public int numFeathers = 0;
     void Awake()
     {
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     // Start is called before the first frame update

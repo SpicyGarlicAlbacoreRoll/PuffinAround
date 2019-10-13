@@ -27,7 +27,6 @@ public class playerController : MonoBehaviour
     // public int featherCounter = 0;
 
     GameObject[] Feathers;
-    featherScript featherScript;
     public int health = 5;
 
     public Text featherText;
@@ -41,8 +40,6 @@ public class playerController : MonoBehaviour
     public int featherCounter = 0;
     void Start()
     {
-        // Feathers = GameObject.FindGameObjectsWithTag("feathers");
-        // featherScript = gameObject.GetComponent<featherScript>();
         position = transform.position;
         acceleration.y = -gravity;
         featherText = GameObject.Find("FeatherText").GetComponent<Text>();
@@ -193,11 +190,7 @@ public class playerController : MonoBehaviour
 
     void AddFeather() {
         featherCounter++;
-        maxJumps = (featherCounter / 3) + 1;
-        // int currentFeathers = featherScript.GetFeathers();
-        // featherScript.SetFeathers(currentFeathers + 1);
-        // maxJumps = (currentFeathers / 3) + 1;
-         
+        maxJumps = (featherCounter / 3) + 1;         
     }
 
     void TakeDamage() {
