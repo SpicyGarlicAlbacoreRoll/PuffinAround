@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1820540666}
   - component: {fileID: 1820540667}
+  - component: {fileID: 156860482}
   m_Layer: 0
   m_Name: EnemyTrigger
   m_TagString: enemy
@@ -57,6 +58,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.33, y: 0.33}
   m_EdgeRadius: 0
+--- !u!114 &156860482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820540665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63667e5c1ada84a5ba70ccb43ff3511d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &3542723283445246299
 GameObject:
   m_ObjectHideFlags: 0
