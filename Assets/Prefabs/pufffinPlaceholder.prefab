@@ -187,7 +187,7 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0}
   gravity: 9.8
   fireCooldown: 0
-  moveSpeed: 2
+  moveSpeed: 10
   jumpSpeed: 2
   isInWater: 0
   isOnSpike: 0

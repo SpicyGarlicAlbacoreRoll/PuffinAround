@@ -111,7 +111,7 @@ public class playerController : MonoBehaviour
         Vector2 direction = Vector2.down;
         // Vector2 position = transform.position;
 
-        float distance = 1.5f*0.3f;
+        float distance = 1.5f*1f;
 
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
@@ -160,7 +160,7 @@ public class playerController : MonoBehaviour
         // position += (Vector2.up * acceleration.y * Time.deltaTime);
         // velocity.y -= gravity * Time.deltaTime;
         // acceleration.y = -gravity;
-        velocity.y -= gravity * Time.deltaTime;
+        velocity.y -= gravity * Time.deltaTime * 5.0f;
         // acceleration.y = -gravity;
         // transform.position = position;
     }
@@ -180,7 +180,7 @@ public class playerController : MonoBehaviour
                     jumpCount++;
                 }
 
-                velocity.y += 80.0f;
+                velocity.y += 160.0f;
                 Debug.Log("jump velocity: " + velocity.y);
                 jumpCoolDownTimer = 0.0f;
             }
