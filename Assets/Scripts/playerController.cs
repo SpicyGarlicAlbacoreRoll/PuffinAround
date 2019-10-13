@@ -27,6 +27,11 @@ public class playerController : MonoBehaviour
     featherScript featherScript;
     public int health = 5;
     public int beakCounter = 0;
+
+    public int maxJumps = 0;
+    public int jumpCount = 0;
+    public float jumpCoolDown = 0.3f;
+    public float jumpCoolDownTimer = 0.0f;
     void Start()
     {
         Feathers = GameObject.Find("Feathers");
@@ -69,6 +74,9 @@ public class playerController : MonoBehaviour
         Vector2 targetTranslation = (velocity * Time.deltaTime)  + (0.5f * acceleration * Time.deltaTime * Time.deltaTime);
         // transform.Translate(targetTranslation);
         transform.position = Vector2.Lerp(transform.position, targetTranslation, 0.15f);
+        if(jumpCoolDownTimer < jumpCoolDown) {
+            jumpCoolDownTimer += Time.deltaTime;
+        }
     }
 
     void Move() {
@@ -105,6 +113,8 @@ public class playerController : MonoBehaviour
             isOnSpike = (hit.collider.gameObject.tag == "hazard");
             // velocity.y = 0;
             // acceleration.y = 0;
+            transform.position = position;
+            jumpCount = 0;
             return true;
             
         }
@@ -143,7 +153,7 @@ public class playerController : MonoBehaviour
     }
 
     void Jump() {
-        if (Input.GetAxisRaw("Jump") == 1 && (IsGrounded() || isInWater)) {
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCoolDownTimer >= jumpCoolDown && (IsGrounded() || isInWater || jumpCount < maxJumps)) {
             // acceleration.y = gravity;
             Vector2 jumpVec = Vector2.up * jumpSpeed * Time.deltaTime;
             // position += jumpVec;
@@ -153,8 +163,13 @@ public class playerController : MonoBehaviour
                 velocity.y += 30.0f;
             }
             else {
-                velocity.y += 50.0f;
+                if(!IsGrounded() && !isInWater) {
+                    jumpCount++;
+                }
+
+                velocity.y += 80.0f;
                 Debug.Log("jump velocity: " + velocity.y);
+                jumpCoolDownTimer = 0.0f;
             }
                 
 
@@ -168,12 +183,15 @@ public class playerController : MonoBehaviour
     void AddFeather() {
         int currentFeathers = featherScript.GetFeathers();
         featherScript.SetFeathers(currentFeathers + 1);
+         
     }
+
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "water") {
             gravity = 25f;
             isInWater = true;
+            jumpCount = 0;
         } else if(other.gameObject.tag == "feather") {
             AddFeather();
         } else if(other.gameObject.tag == "enemy") {
