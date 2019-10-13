@@ -23,4 +23,10 @@ public class projectileController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider other) {
+        if (other.gameObject.tag == "enemy") {
+            Destroy(gameObject);
+        }
+    }
 }
