@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class playerController : MonoBehaviour
     GameObject[] Feathers;
     featherScript featherScript;
     public int health = 5;
+
+    public Text featherText;
+    public Text healthText;
     public int beakCounter = 0;
 
     public int maxJumps = 1;
@@ -79,6 +83,8 @@ public class playerController : MonoBehaviour
         if(jumpCoolDownTimer < jumpCoolDown) {
             jumpCoolDownTimer += Time.deltaTime;
         }
+        healthText.GetComponent<UnityEngine.UI.Text>().text = "Health: " + health.ToString();
+        featherText.GetComponent<UnityEngine.UI.Text>().text = "Feathers: " + featherCounter.ToString();
     }
 
     void Move() {
