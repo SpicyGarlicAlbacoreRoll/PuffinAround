@@ -7,9 +7,11 @@ public class projectileController : MonoBehaviour
     float viewThreshold = 1f;
     Rigidbody2D projectileRB;
     public GameObject player;
+    public SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         projectileRB = gameObject.GetComponent<Rigidbody2D>();
         // projectileRB = gameObject.GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
@@ -17,6 +19,9 @@ public class projectileController : MonoBehaviour
         }
         playerController playerScript = player.GetComponent<playerController>();
         int direction = playerScript.getDirection();
+        if (direction < 0) {
+            spriteRenderer.flipX = true;
+        }
         projectileRB.AddForce(transform.right * 1000f * direction);
     }
 
