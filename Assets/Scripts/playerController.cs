@@ -21,12 +21,16 @@ public class playerController : MonoBehaviour
 
     public bool isInWater = false;
     public bool isOnSpike = false;
-    public int featherCounter = 0;
+    // public int featherCounter = 0;
 
+    GameObject Feathers;
+    featherScript featherScript;
     public int health = 5;
     public int beakCounter = 0;
     void Start()
     {
+        Feathers = GameObject.Find("Feathers");
+        featherScript = Feathers.GetComponent<featherScript>();
         // playerRB = gameObject.GetComponent<Rigidbody2D>();
         position = transform.position;
         acceleration.y = -gravity;
@@ -161,12 +165,17 @@ public class playerController : MonoBehaviour
         health--;  
     }
 
+    void AddFeather() {
+        int currentFeathers = featherScript.GetFeathers();
+        featherScript.SetFeathers(currentFeathers + 1);
+    }
+
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "water") {
             gravity = 25f;
             isInWater = true;
         } else if(other.gameObject.tag == "feather") {
-            featherCounter++;
+            AddFeather();
         } else if(other.gameObject.tag == "enemy") {
             health--;
         } else if(other.gameObject.tag == "beak") {
