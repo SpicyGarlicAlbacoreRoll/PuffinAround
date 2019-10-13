@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour
     public bool isInWater = false;
     public bool isOnSpike = false;
     public int featherCounter = 0;
+    public int beakCounter = 0;
     void Start()
     {
         // playerRB = gameObject.GetComponent<Rigidbody2D>();
@@ -149,6 +150,7 @@ public class playerController : MonoBehaviour
             }
             else {
                 velocity.y += 50.0f;
+                Debug.Log("jump velocity: " + velocity.y);
             }
                 
 
@@ -169,6 +171,8 @@ public class playerController : MonoBehaviour
             isInWater = true;
         } else if(other.gameObject.tag == "feather") {
             featherCounter++;
+        } else if(other.gameObject.tag == "beak") {
+            beakCounter++;
         }
     }
 
