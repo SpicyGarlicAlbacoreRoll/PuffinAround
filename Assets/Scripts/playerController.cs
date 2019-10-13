@@ -45,6 +45,8 @@ public class playerController : MonoBehaviour
         // featherScript = gameObject.GetComponent<featherScript>();
         position = transform.position;
         acceleration.y = -gravity;
+        featherText = GameObject.Find("FeatherText").GetComponent<Text>();
+        healthText = GameObject.Find("HealthText").GetComponent<Text>();
     }
 
     // Update is called once per frame
