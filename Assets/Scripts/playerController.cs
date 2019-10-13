@@ -65,9 +65,6 @@ public class playerController : MonoBehaviour
         Vector2 targetTranslation = (velocity * Time.deltaTime)  + (0.5f * acceleration * Time.deltaTime * Time.deltaTime);
         // transform.Translate(targetTranslation);
         transform.position = Vector2.Lerp(transform.position, targetTranslation, 0.15f);
-        
-
-        print("player health: " + health);
     }
 
     void Move() {
@@ -100,7 +97,6 @@ public class playerController : MonoBehaviour
         if(hit.collider != null) {
             if (hit.collider.gameObject.tag == "hazard" && !isOnSpike) {
                 HitSpike();
-                print("hit the spike!");
             }
             isOnSpike = (hit.collider.gameObject.tag == "hazard");
             // velocity.y = 0;
