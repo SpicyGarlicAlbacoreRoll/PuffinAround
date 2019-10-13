@@ -110,7 +110,7 @@ public class playerController : MonoBehaviour
         Vector2 direction = Vector2.down;
         // Vector2 position = transform.position;
 
-        float distance = 0.3f;
+        float distance = 1.5f*0.3f;
 
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
@@ -134,7 +134,7 @@ public class playerController : MonoBehaviour
             Vector2 direction = new Vector2(velDirection, 0);
         // Vector2 position = transform.position;
 
-        float distance = 0.35f;
+        float distance = 1.5f*0.35f;
 
         //offset is for measure from the bottom corner of the player
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.red);
