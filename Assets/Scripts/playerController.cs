@@ -24,20 +24,20 @@ public class playerController : MonoBehaviour
     public bool isOnSpike = false;
     // public int featherCounter = 0;
 
-    GameObject Feathers;
+    GameObject[] Feathers;
     featherScript featherScript;
     public int health = 5;
     public int beakCounter = 0;
 
-    public int maxJumps = 0;
+    public int maxJumps = 1;
     public int jumpCount = 0;
     public float jumpCoolDown = 0.3f;
     public float jumpCoolDownTimer = 0.0f;
+    public int featherCounter = 0;
     void Start()
     {
-        Feathers = GameObject.Find("Feathers");
-        featherScript = Feathers.GetComponent<featherScript>();
-        // playerRB = gameObject.GetComponent<Rigidbody2D>();
+        // Feathers = GameObject.FindGameObjectsWithTag("feathers");
+        // featherScript = gameObject.GetComponent<featherScript>();
         position = transform.position;
         acceleration.y = -gravity;
     }
@@ -164,7 +164,7 @@ public class playerController : MonoBehaviour
                 velocity.y += 30.0f;
             }
             else {
-                if(!IsGrounded() && !isInWater) {
+                if(!isInWater) {
                     jumpCount++;
                 }
 
@@ -182,8 +182,11 @@ public class playerController : MonoBehaviour
     }
 
     void AddFeather() {
-        int currentFeathers = featherScript.GetFeathers();
-        featherScript.SetFeathers(currentFeathers + 1);
+        featherCounter++;
+        maxJumps = (featherCounter / 3) + 1;
+        // int currentFeathers = featherScript.GetFeathers();
+        // featherScript.SetFeathers(currentFeathers + 1);
+        // maxJumps = (currentFeathers / 3) + 1;
          
     }
 
@@ -201,6 +204,8 @@ public class playerController : MonoBehaviour
             jumpCount = 0;
         } else if(other.gameObject.tag == "feather") {
             AddFeather();
+            
+            Debug.Log("ADDING FEATHER");
         } else if(other.gameObject.tag == "enemy") {
             TakeDamage();
         } else if(other.gameObject.tag == "beak") {
