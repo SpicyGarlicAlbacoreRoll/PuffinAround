@@ -20,6 +20,7 @@ public class playerController : MonoBehaviour
     public float jumpSpeed = 2.0f;
 
     public bool isInWater = false;
+    public bool isOnSpike = false;
     public int featherCounter = 0;
     void Start()
     {
@@ -45,13 +46,11 @@ public class playerController : MonoBehaviour
         Move();
 
         if(Input.GetKeyDown(KeyCode.F) && fireCooldown <= 0.45f) {
-            print("the key down one");
             FireProjectile();
         }
 
         else if(Input.GetKey(KeyCode.F) && fireCooldown <= 0f)
         {
-            print("the cool down one");
             FireProjectile();
         }
 
@@ -94,6 +93,11 @@ public class playerController : MonoBehaviour
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
         if(hit.collider != null) {
+            if (hit.collider.gameObject.tag == "hazard" && !isOnSpike) {
+                HitSpike();
+                print("hit the spike!");
+            }
+            isOnSpike = (hit.collider.gameObject.tag == "hazard");
             // velocity.y = 0;
             // acceleration.y = 0;
             return true;
@@ -149,6 +153,14 @@ public class playerController : MonoBehaviour
                 
 
         }
+    }
+
+    void HitSpike() {
+        //health--;
+        //isOnSpike = true;    
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
     }
 
     void OnTriggerEnter2D(Collider2D other) {
