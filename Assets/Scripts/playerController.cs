@@ -22,6 +22,8 @@ public class playerController : MonoBehaviour
     public bool isInWater = false;
     public bool isOnSpike = false;
     public int featherCounter = 0;
+
+    public int health = 5;
     void Start()
     {
         // playerRB = gameObject.GetComponent<Rigidbody2D>();
@@ -63,6 +65,8 @@ public class playerController : MonoBehaviour
         // transform.Translate(targetTranslation);
         transform.position = Vector2.Lerp(transform.position, targetTranslation, 0.15f);
         
+
+        print("player health: " + health);
     }
 
     void Move() {
@@ -156,11 +160,7 @@ public class playerController : MonoBehaviour
     }
 
     void HitSpike() {
-        //health--;
-        //isOnSpike = true;    
-    }
-
-    private void OnCollisionEnter2D(Collision2D other) {
+        health--;  
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -169,7 +169,9 @@ public class playerController : MonoBehaviour
             isInWater = true;
         } else if(other.gameObject.tag == "feather") {
             featherCounter++;
-        }
+        } else if(other.gameObject.tag == "enemy") {
+            health--;
+        } 
     }
 
     void OnTriggerExit2D(Collider2D other) {
