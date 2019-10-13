@@ -39,10 +39,13 @@ public class playerController : MonoBehaviour
     public float jumpCoolDown = 0.3f;
     public float jumpCoolDownTimer = 0.0f;
     public int featherCounter = 0;
+
+    private SpriteRenderer playerSprite;
     void Start()
     {
         position = transform.position;
         acceleration.y = -gravity;
+        playerSprite = GetComponent<SpriteRenderer>();
         featherText = GameObject.Find("FeatherText").GetComponent<Text>();
         healthText = GameObject.Find("HealthText").GetComponent<Text>();
     }
@@ -215,9 +218,10 @@ public class playerController : MonoBehaviour
             
             playerDirection = -1;
             Debug.Log($"changing direction {playerDirection}");
+            playerSprite.flipX = true;
 
         } else {
-            
+            playerSprite.flipX = false;
             playerDirection = 1;
             Debug.Log($"changing direction {playerDirection}");
         }
