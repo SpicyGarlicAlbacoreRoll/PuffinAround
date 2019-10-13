@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1820540666}
   - component: {fileID: 1820540667}
-  - component: {fileID: 156860482}
   m_Layer: 0
   m_Name: EnemyTrigger
   m_TagString: enemy
@@ -58,19 +57,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.33, y: 0.33}
   m_EdgeRadius: 0
---- !u!114 &156860482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820540665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63667e5c1ada84a5ba70ccb43ff3511d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1 &3542723283445246299
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +71,7 @@ GameObject:
   - component: {fileID: 8766003062606269067}
   - component: {fileID: 8494951731651890201}
   m_Layer: 9
-  m_Name: enemy
+  m_Name: enemy_shoot
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +130,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a37aa86ecb4344bf88c9abb3c928144b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3d83af3d7279940f9a19720a5fe8bb30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

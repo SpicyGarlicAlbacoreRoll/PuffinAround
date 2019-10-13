@@ -32,6 +32,7 @@ public class playerController : MonoBehaviour
     public Text featherText;
     public Text healthText;
     public int beakCounter = 0;
+    public float playerEnemeyThreshold = 0.05f;
 
     public int maxJumps = 1;
     public int jumpCount = 0;
@@ -116,7 +117,12 @@ public class playerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
         if(hit.collider != null) {
             if (hit.collider.gameObject.tag == "hazard" && !isOnSpike) {
+                print("hit spike");
                 HitSpike();
+            }
+            if (hit.collider.gameObject.tag == "enemy") {
+                print("enemy hit");
+                Destroy(hit.collider.gameObject);
             }
             isOnSpike = (hit.collider.gameObject.tag == "hazard");
             // velocity.y = 0;
@@ -140,7 +146,6 @@ public class playerController : MonoBehaviour
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(position - new Vector2(0, 0.1f), direction, distance, groundLayer);
         if(hit.collider != null) {
-            Debug.Log("Hitting wall");
             // velocity.y = 0;
             // acceleration.y = 0;
             return true;
@@ -224,10 +229,16 @@ public class playerController : MonoBehaviour
             jumpCount = 0;
         } else if(other.gameObject.tag == "feather") {
             AddFeather();
-            
-            Debug.Log("ADDING FEATHER");
-        } else if(other.gameObject.tag == "enemy") {
-            TakeDamage();
+        } else if(other.gameObject.tag == "enemy" || other.gameObject.tag == "enemy_jump") {
+            float playerLowerBound = gameObject.GetComponent<Collider2D>().bounds.min.y;
+            float enemyUpperBound = other.gameObject.GetComponent<Collider2D>().bounds.max.y;
+            float difference = Mathf.Abs(playerLowerBound - enemyUpperBound);
+
+            if (difference < playerEnemeyThreshold) {
+                Destroy(other.gameObject.transform.parent.gameObject);
+            } else { 
+                TakeDamage(); 
+            }
         } else if(other.gameObject.tag == "beak") {
             beakCounter++;
         }

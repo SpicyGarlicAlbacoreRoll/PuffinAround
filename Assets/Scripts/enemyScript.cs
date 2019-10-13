@@ -34,7 +34,7 @@ public class enemyScript : MonoBehaviour
         if (other.gameObject != player &&
             other.contacts[0].normal.y != 1.0f) {
             speed *= -1.0f;
-        }
+        } 
     }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "bullet") {

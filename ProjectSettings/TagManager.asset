@@ -9,6 +9,8 @@ TagManager:
   - beak
   - bullet
   - hazard
+  - ground
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - 
   - 
   - Ground
-  - 
-  - 
+  - Enemy
+  - Player
   - 
   - 
   - 
