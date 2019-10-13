@@ -17,7 +17,7 @@ public class projectileController : MonoBehaviour
         }
         playerController playerScript = player.GetComponent<playerController>();
         int direction = playerScript.getDirection();
-        projectileRB.AddForce(transform.right * 100f * direction);
+        projectileRB.AddForce(transform.right * 1000f * direction);
     }
 
     // Update is called once per frame
