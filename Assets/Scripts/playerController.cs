@@ -114,7 +114,7 @@ public class playerController : MonoBehaviour
         Vector2 direction = Vector2.down;
         // Vector2 position = transform.position;
 
-        float distance = 1.5f;
+        float distance = 0.6f;
 
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.yellow);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
@@ -143,7 +143,7 @@ public class playerController : MonoBehaviour
             Vector2 direction = new Vector2(velDirection, 0);
         // Vector2 position = transform.position;
 
-        float distance = 1.5f*0.35f;
+        float distance = 1.25f;
 
         //offset is for measure from the bottom corner of the player
         Debug.DrawRay(position - new Vector2(0, 0.1f), direction, Color.red);
@@ -163,7 +163,7 @@ public class playerController : MonoBehaviour
         // position += (Vector2.up * acceleration.y * Time.deltaTime);
         // velocity.y -= gravity * Time.deltaTime;
         // acceleration.y = -gravity;
-        velocity.y -= gravity * Time.deltaTime * 5.0f;
+        velocity.y -= gravity * Time.deltaTime * 10.0f;
         // acceleration.y = -gravity;
         // transform.position = position;
     }
@@ -225,7 +225,7 @@ public class playerController : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "water") {
-            gravity = 25f;
+            gravity = 5f;
             isInWater = true;
             jumpCount = 0;
         } else if(other.gameObject.tag == "feather") {
@@ -247,7 +247,7 @@ public class playerController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other) {
         if (other.gameObject.tag == "water") {
-            gravity = 75f;
+            gravity = 9.8f;
             isInWater = false;
         }    
     }

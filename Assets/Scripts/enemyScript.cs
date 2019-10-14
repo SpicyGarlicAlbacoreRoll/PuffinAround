@@ -28,6 +28,11 @@ public class enemyScript : MonoBehaviour
         if (Mathf.Abs(originalPos.x - transform.position.x) > 2.0f) {
             speed *= -1.0f;
         }
+        if(speed < 0) {
+            GetComponent<SpriteRenderer>().flipX = false;
+        } else {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other) {
